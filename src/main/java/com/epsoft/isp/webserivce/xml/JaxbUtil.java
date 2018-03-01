@@ -17,7 +17,7 @@ public class JaxbUtil {
 
     private static JaxbUtil jaxbutil;
 
-    // ¶àÏß³Ì°²È«µÄContext.
+    // å¤šçº¿ç¨‹å®‰å…¨çš„Context.
     private static  JAXBContext jaxbContext;
 
     public JaxbUtil(Class<?>... types){
@@ -47,9 +47,9 @@ public class JaxbUtil {
     public String toXml(Object root, String encoding) {
         try {
             StringWriter writer = new StringWriter();
-            //Ìí¼Ó×Ô¼ºÏëÒªµÄxml±¨ÎÄÍ·
-            writer.write("<?xml version=\'1.0\' encoding=\'" + encoding + "\'?>\n");
-            //writer.write("");
+            //æ·»åŠ è‡ªå·±æƒ³è¦çš„xmlæŠ¥æ–‡å¤´
+            //writer.write("<?xml version=\'1.0\' encoding=\'" + encoding + "\'?>\n");
+            writer.write("");
             Marshaller marshaller= createMarshaller(encoding);
             marshaller.marshal(root, writer);
             return writer.toString();
@@ -59,7 +59,7 @@ public class JaxbUtil {
     }
 
     /**
-     * Java Object->Xml, ÌØ±ğÖ§³Ö¶ÔRoot ElementÊÇCollectionµÄÇéĞÎ.
+     * Java Object->Xml, ç‰¹åˆ«æ”¯æŒå¯¹Root Elementæ˜¯Collectionçš„æƒ…å½¢.
      */
     @SuppressWarnings("unchecked")
     public String toXml(Collection root, String rootName, String encoding) {
@@ -96,7 +96,7 @@ public class JaxbUtil {
     }
 
     /**
-     * Xml->Java Object, Ö§³Ö´óĞ¡Ğ´Ãô¸Ğ»ò²»Ãô¸Ğ.
+     * Xml->Java Object, æ”¯æŒå¤§å°å†™æ•æ„Ÿæˆ–ä¸æ•æ„Ÿ.
      */
     @SuppressWarnings("unchecked")
     public <T> T fromXml(String xml, boolean caseSensitive) {
@@ -112,17 +112,16 @@ public class JaxbUtil {
     }
 
     /**
-     * ´´½¨Marshaller, Éè¶¨encoding(¿ÉÎªNull).
+     * åˆ›å»ºMarshaller, è®¾å®šencoding(å¯ä¸ºNull).
      */
     public Marshaller createMarshaller(String encoding) {
         try {
             Marshaller marshaller = jaxbContext.createMarshaller();
-            //¸ñÊ½»¯
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.FALSE);
-            //È¥µôÉú³ÉxmlµÄÄ¬ÈÏ±¨ÎÄÍ·¡£
+            //å»æ‰ç”Ÿæˆxmlçš„é»˜è®¤æŠ¥æ–‡å¤´ã€‚
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
-            //×ª»»ËùÓĞµÄÊÊÅä×Ö·û£¬°üÀ¨xmlÊµÌå×Ö·û&lt;ºÍ&gt;£¬xmlÊµÌå×Ö·ûÔÚºÃ¶à´¦Àíxml
-            //µÄ¿ò¼ÜÖĞÊÇ´¦Àí²»ÁËµÄ£¬³ı·ÇĞòÁĞ»¯¡£
+            //è½¬æ¢æ‰€æœ‰çš„é€‚é…å­—ç¬¦ï¼ŒåŒ…æ‹¬xmlå®ä½“å­—ç¬¦&lt;å’Œ&gt;ï¼Œxmlå®ä½“å­—ç¬¦åœ¨å¥½å¤šå¤„ç†xml
+            //çš„æ¡†æ¶ä¸­æ˜¯å¤„ç†ä¸äº†çš„ï¼Œé™¤éåºåˆ—åŒ–ã€‚
 
             if (!encoding.equals("")) {
                 marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);
@@ -134,7 +133,7 @@ public class JaxbUtil {
     }
 
     /**
-     * ´´½¨UnMarshaller.
+     * åˆ›å»ºUnMarshaller.
      */
     public Unmarshaller createUnmarshaller() {
         try {
@@ -145,7 +144,7 @@ public class JaxbUtil {
     }
 
     /**
-     * ·â×°Root Element ÊÇ CollectionµÄÇé¿ö.
+     * å°è£…Root Element æ˜¯ Collectionçš„æƒ…å†µ.
      */
     public static class CollectionWrapper {
         @SuppressWarnings("unchecked")
